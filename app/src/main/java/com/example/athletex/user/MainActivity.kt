@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             CbnMenuItem(
                 R.drawable.diet,
                 R.drawable.avd_diet,
-                R.id.planStepOneFragment
+                R.id.DietFragment
             ),
 
             CbnMenuItem(

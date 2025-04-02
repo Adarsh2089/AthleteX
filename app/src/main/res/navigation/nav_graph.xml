@@ -94,6 +94,22 @@
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/DietFragment"
+        android:name="com.example.athletex.diet"
+        android:label="fragment_diet"
+        tools:layout="@layout/fragment_diet" >
+
+        <action
+            android:id="@+id/action_homeFragment_to_planStepOneFragment"
+            app:destination="@id/planStepOneFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
 
 
 </navigation>

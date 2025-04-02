@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+
+    <LinearLayout
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/athlete"
+            android:layout_gravity="center" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Your Account"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_24ssp"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_20sdp"
+        android:layout_below="@+id/first"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up"
+                android:textColor="#0B1361"
+                android:textStyle="bold"
+                android:textSize="@dimen/_24ssp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_5sdp"/>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         android:layout_margin="@dimen/_20sdp">
+            <EditText
+                android:id="@+id/etName"
+                style="@style/CustomEditText"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Full Name" />
+
+            <EditText
+                android:id="@+id/etSport"
+                style="@style/CustomEditText"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Sport" />
+
+            <EditText
+                android:id="@+id/etGoals"
+                style="@style/CustomEditText"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Goals" />
+
+            <EditText
+                android:id="@+id/etCoach"
+                style="@style/CustomEditText"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Associated Coach" />
+
+            <EditText
+                android:id="@+id/etExperience"
+                style="@style/CustomEditText"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Experience (in years)"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                style="@style/CustomEditText"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                style="@style/CustomEditText"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Password"
+                android:inputType="textPassword" />
+     </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <!--sample button to submit entered data inside from edit text-->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:backgroundTint="@color/primaryColor"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:text="Create Account"
+                android:onClick="registerUser" />
+
+            <TextView
+                android:id="@+id/loginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Login"
+                android:layout_gravity="center"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/_13ssp"
+                android:paddingTop="10dp"/>
+
+            <View
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"/>
+
+
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

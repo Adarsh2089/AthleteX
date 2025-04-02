@@ -1,0 +1,32 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="14dp"
+            android:height="16dp"
+            android:viewportWidth="14"
+            android:viewportHeight="16">
+
+            <path
+                android:name="housePath"
+                android:pathData="M1,14.788H4.692V8.903H9.308V14.788H13V5.788L7,1.25L1,5.788V14.788ZM0,15.788V5.288L7,0L14,5.288V15.788H8.308V9.903H5.692V15.788H0Z"
+                android:fillColor="#ffffff"/>
+
+        </vector>
+    </aapt:attr>
+
+    <target android:name="housePath">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="trimPathEnd"
+                android:duration="700"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:valueType="floatType"
+                android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
+        </aapt:attr>
+    </target>
+
+</animated-vector>

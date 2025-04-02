@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "813065194754",
+    "project_id": "athletex-5f89e",
+    "storage_bucket": "athletex-5f89e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813065194754:android:c214d9dabf2bcc0911c61b",
+        "android_client_info": {
+          "package_name": "com.example.athletex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBi53Zz9iIxkED_Cf3zPjAG2lj4Jjo38s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

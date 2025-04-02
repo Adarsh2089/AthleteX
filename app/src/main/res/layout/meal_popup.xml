@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/popup_bg"
+    android:padding="20dp"
+    android:elevation="12dp"
+    android:gravity="center_horizontal">
+
+    <!-- Meal Image -->
+    <ImageView
+        android:id="@+id/mealImage"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/sample_meal"
+        android:scaleType="centerCrop"
+        android:background="@drawable/rounded_image_bg"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Meal Description -->
+    <TextView
+        android:id="@+id/mealDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A delicious and healthy meal packed with essential nutrients to keep you energized."
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="12dp"/>
+
+    <!-- Nutrient Breakdown Title -->
+    <TextView
+        android:text="Nutrient Breakdown"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@android:color/red"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Nutrient Breakdown Details -->
+    <TextView
+        android:id="@+id/nutrientInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🥩 Protein: 15g  |  🍞 Carbs: 40g  |  🥑 Fats: 10g"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:paddingTop="6dp"/>
+</LinearLayout>

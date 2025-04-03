@@ -3,11 +3,15 @@
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:angle="45"
-                android:startColor="#FFB6C1"  <!-- Soft pink -->
-            android:endColor="#8A2BE2"/> <!-- Light purple -->
+                android:startColor="#FFB6C1"
+                android:endColor="#8A2BE2"
+                android:angle="45" />
             <corners android:radius="25dp"/>
-            <padding android:left="16dp" android:right="16dp" android:top="16dp" android:bottom="16dp"/>
+            <padding
+                android:left="16dp"
+                android:right="16dp"
+                android:top="16dp"
+                android:bottom="16dp"/>
         </shape>
     </item>
 </layer-list>

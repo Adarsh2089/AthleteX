@@ -1,217 +1,495 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/profileFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/backgroundFill">
 
-        <!-- CardView -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/list_item_height"
-        app:cardForegroundColor="@color/primaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </com.google.android.material.card.MaterialCardView>
-
-        <!-- ImageView for user profile image -->
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/default_user_avatar"
-            app:layout_constraintBottom_toBottomOf="@+id/card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/card"
-            app:layout_constraintTop_toBottomOf="@+id/card" />
-
-        <!-- TextView for user name -->
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:text="@string/default_user"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.511"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <!-- TextView for weekly result information -->
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium"
-            android:text="@string/result"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
-
-    <!-- Total Calories TextView -->
-    <TextView
-        android:id="@+id/totalCaloriesTextView"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="@string/total_calories"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_20sdp">
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/user_settings"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
 
-    <!-- BarChart for visual representation of data -->
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.3"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-    </com.github.mikephil.charting.charts.BarChart>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_20sdp">
 
-        <!-- TextView for summary -->
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium"
-            android:text="@string/summary"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/summary_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-        <!-- LinearLayout for summary information -->
-        <LinearLayout
-            android:id="@+id/summary_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-            <!-- CardView for total time -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:backgroundTint="@color/primaryColor"
+                android:elevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_20sdp">
+
+                    <!-- First Circle Image (User Profile) -->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:src="@drawable/user"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#FF000000"/>
+
+                    <!-- First TextView Below User Profile -->
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Adarsh Patel"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:textSize="@dimen/_14ssp"
+                        android:textColor="@color/white"
+                        android:layout_below="@id/user_image"
+                        android:layout_marginTop="8dp"
+                        android:layout_centerHorizontal="false" />
+
+                    <!-- Second Circle Image (Coach Profile) -->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/coach_image"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:src="@drawable/user"
+                        app:civ_border_color="#FF000000"
+                        app:civ_border_width="2dp" />
+
+                    <!-- Second TextView Below Coach Profile -->
+                    <TextView
+                        android:id="@+id/coach_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mahindra Paul"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:textSize="@dimen/_14ssp"
+                        android:textColor="@color/white"
+                        android:layout_below="@id/coach_image"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="-10dp"
+                        android:layout_alignEnd="@id/coach_image"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(coach)"
+                        android:layout_marginTop="-5dp"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_below="@id/coach_name"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_alignEnd="@id/coach_image"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/coach_name"
+                        android:text="Chat with Coach"
+                        app:icon="@drawable/chat"
+                        android:backgroundTint="@color/secondaryColor"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_centerHorizontal="true"
+                        app:iconGravity="textStart"
+                        app:iconSize="24dp"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Health Stats "
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:backgroundTint="@color/secondaryColor"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:gravity="center">
+
+        <!-- Steps Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:elevation="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:padding="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/foot_steps"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:src="@drawable/foot_steps" />
+
+                <TextView
+                    android:id="@+id/label_steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Foot Steps"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/foot_steps"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/value_steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_below="@id/label_steps"
+                    android:layout_toRightOf="@id/foot_steps"
+                    android:layout_marginStart="40dp" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Heart Rate Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:elevation="@dimen/_6sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:padding="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/heart_rate"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:src="@drawable/heart_rate" />
+
+                <TextView
+                    android:id="@+id/label_heart_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Heart Rate"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/heart_rate"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/value_heart_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_below="@id/label_heart_rate"
+                    android:layout_toRightOf="@id/heart_rate"
+                    android:layout_marginStart="40dp" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView> </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:gravity="center">
+
+        <!-- Steps Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:elevation="@dimen/_6sdp"
+            android:padding="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/blood_pressure"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:src="@drawable/blood_pressure" />
+
+                <TextView
+                    android:id="@+id/label_blood_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blood Pressure"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/blood_pressure"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/value_blood_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_below="@id/label_blood_pressure"
+                    android:layout_toRightOf="@id/blood_pressure"
+                    android:layout_marginStart="40dp" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Heart Rate Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:elevation="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:padding="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/calories"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:src="@drawable/calories" />
+
+                <TextView
+                    android:id="@+id/label_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calories"
+                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/calories"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/value_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_below="@id/label_calories"
+                    android:layout_toRightOf="@id/calories"
+                    android:layout_marginStart="40dp" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+    <!-- TextView for summary -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weekly Summary"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:backgroundTint="@color/secondaryColor"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp" />
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/forward"
+            android:layout_marginLeft="@dimen/_130sdp"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+
+    </LinearLayout>
+    <!-- LinearLayout for summary information -->
+    <LinearLayout
+        android:id="@+id/summary_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_20sdp">
+
+        <!-- CardView for total time -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <!-- ImageView for time icon -->
+                <ImageView
                     android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/content_description_media"
+                    app:srcCompat="@drawable/time" />
+
+                <!-- TextView for total time -->
+                <TextView
+                    android:id="@+id/total_time"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/total_time" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                    <!-- ImageView for time icon -->
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:contentDescription="@string/content_description_media"
-                        app:srcCompat="@drawable/time" />
+        <!-- CardView for total exercise -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_small">
 
-                    <!-- TextView for total time -->
-                    <TextView
-                        android:id="@+id/total_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_time" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <!-- CardView for total exercise -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_small">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- ImageView for dumbbell icon -->
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:contentDescription="@string/content_description_media"
+                    app:srcCompat="@drawable/dumbell" />
 
-                    <!-- ImageView for dumbbell icon -->
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/content_description_media"
-                        app:srcCompat="@drawable/dumbell" />
-
-                    <!-- TextView for total exercise -->
-                    <TextView
-                        android:id="@+id/total_exercise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_exercise" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- CardView for progress information -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_small">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- TextView for total exercise -->
+                <TextView
+                    android:id="@+id/total_exercise"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/total_exercise" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                    <!-- ProgressBar for progress -->
-                    <ProgressBar
-                        android:id="@+id/progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/progress_image"
-                        android:indeterminateOnly="false"
-                        android:progressDrawable="@drawable/circle"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.796"
-                        app:layout_constraintStart_toEndOf="@+id/exercise_left"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.313"/>
+        <!-- CardView for progress information -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_small">
 
-                    <!-- TextView for progress percentage -->
-                    <TextView
-                        android:id="@+id/percentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/example_percentage" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <!-- ProgressBar for progress -->
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/progress_image"
+                    android:indeterminateOnly="false"
+                    android:progressDrawable="@drawable/circle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.796"
+                    app:layout_constraintStart_toEndOf="@+id/exercise_left"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.313"/>
+
+                <!-- TextView for progress percentage -->
+                <TextView
+                    android:id="@+id/percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/example_percentage" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/totalCaloriesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/total_calories"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp"/>
+</LinearLayout>
+
+

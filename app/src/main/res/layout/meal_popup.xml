@@ -14,7 +14,6 @@
         android:id="@+id/mealImage"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:src="@drawable/sample_meal"
         android:scaleType="centerCrop"
         android:background="@drawable/rounded_image_bg"
         android:layout_marginBottom="16dp"/>
@@ -38,7 +37,7 @@
         android:layout_width="match_parent"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:textColor="@android:color/red"
+        android:textColor="@color/red"
         android:gravity="center"
         android:layout_marginTop="10dp"/>
 

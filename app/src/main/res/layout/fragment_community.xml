@@ -358,9 +358,9 @@
                 <!-- profile image-->
                 <ImageView
                     android:id="@+id/profile_pic"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:src="@drawable/user"
                     android:layout_marginEnd="12dp"
                     android:scaleType="centerCrop" />
 
@@ -449,10 +449,10 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card1"
-                    android:layout_width="100dp"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_130sdp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/_20sdp"
+                    app:cardCornerRadius="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp">
@@ -488,8 +488,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card2"
-                    android:layout_width="100dp"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_130sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -526,8 +526,8 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card3"
-                    android:layout_width="100dp"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_130sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -563,8 +563,8 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card4"
-                    android:layout_width="100dp"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_130sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -600,8 +600,8 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card5"
-                    android:layout_width="100dp"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_130sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"

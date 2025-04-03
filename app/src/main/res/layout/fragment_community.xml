@@ -93,8 +93,9 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards1"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="@dimen/_100sdp"
+
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -102,29 +103,28 @@
                     android:layout_marginRight="@dimen/_10sdp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:layout_gravity="center_horizontal"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="FitFusion"
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_15ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
-                            android:id="@+id/login1"
+                        <ImageView
+                            android:id="@+id/FitFusion"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
-                            android:text="Login"
+                            android:src="@drawable/fitf"
                             android:onClick="loginUser"/>
 
                     </LinearLayout>
@@ -132,7 +132,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards2"
-                    android:layout_width="100dp"
+                    android:layout_width="135dp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -143,34 +143,33 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:padding="5dp"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
-                            android:textColor="#0B1361"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/_5sdp"/>
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="PowerPulse"
+                            android:textColor="#0B1361"
+                            android:textSize="@dimen/_15ssp"
+                            android:textStyle="bold" />
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
-                            android:id="@+id/login2"
+                        <ImageView
+                            android:id="@+id/club_powerpulse"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
-                            android:text="Login"
+                            android:src="@drawable/poowerpulse"
                             android:onClick="loginUser"/>
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards3"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -181,26 +180,26 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:layout_gravity="center_horizontal"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="Titans"
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_15ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
-                            android:id="@+id/login3"
+                        <ImageView
+                            android:id="@+id/club_titans"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/titans"
                             android:text="Login"
                             android:onClick="loginUser"/>
 
@@ -208,7 +207,7 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards4"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -219,26 +218,28 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5dp"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="Pulse"
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_15ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
-                            android:id="@+id/login4"
+                        <ImageView
+                            android:id="@+id/club_pulse"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
+
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/pulse"
+
                             android:text="Login"
                             android:onClick="loginUser"/>
 
@@ -246,7 +247,7 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards5"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -257,26 +258,28 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5dp"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="Rhythm "
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_15ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
-                            android:id="@+id/login5"
+                        <ImageView
+                            android:id="@+id/club_rhythm"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
+
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/rhythm"
+
                             android:text="Login"
                             android:onClick="loginUser"/>
 
@@ -333,9 +336,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/performer_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_150sdp"
         android:layout_margin="10dp"
         android:layout_weight="1"
+        android:backgroundTint="@color/primaryColor"
         android:layout_marginTop="@dimen/_20sdp"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp">
@@ -344,7 +348,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="35dp">
 
             <!-- First row - profile pic, training type and time -->
 
@@ -356,13 +360,14 @@
                 android:paddingBottom="6dp">
 
                 <!-- profile image-->
-                <ImageView
-                    android:id="@+id/profile_pic"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_image"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
-                    android:src="@drawable/user"
-                    android:layout_marginEnd="12dp"
-                    android:scaleType="centerCrop" />
+                    android:src="@drawable/cmprofile"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="#FF000000"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -389,8 +394,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="6:00 AM"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="16sp" />
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -419,7 +425,8 @@
                     android:text="Coach: Mike Tyson"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
@@ -464,22 +471,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="Changers"
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
-
+                        <ImageView
+                            android:id="@+id/club_changers"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/changers"
                             android:text="Login"
                             android:onClick="loginUser"/>
 
@@ -503,22 +508,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="Yogshakti "
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
-
+                        <ImageView
+                            android:id="@+id/club_yogashakti"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/yogashakti"
                             android:text="Login"
                             android:onClick="loginUser"/>
 
@@ -541,21 +544,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="AgniFit"
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
+                        <ImageView
+                            android:id="@+id/club_agnifit"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/agnifit"
                             android:text="Login"
                             android:onClick="loginUser"/>
 
@@ -578,21 +580,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="Indic"
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
+                        <ImageView
+                            android:id="@+id/club_indic"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/indic"
                             android:text="Login"
                             android:onClick="loginUser"/>
 
@@ -615,21 +616,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
+                            android:text="Tarang"
                             android:textColor="#0B1361"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->
-                        <Button
+                        <ImageView
+                            android:id="@+id/club_taranag"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:src="@drawable/taranag"
                             android:text="Login"
                             android:onClick="loginUser"/>
 

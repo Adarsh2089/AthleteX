@@ -16,7 +16,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="83dp"
+        android:layout_height="@dimen/_43sdp"
         android:padding="@dimen/_5sdp">
 
         <LinearLayout
@@ -93,7 +93,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards1"
-                    android:layout_width="120dp"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
 
                     app:cardBackgroundColor="@color/white"
@@ -132,7 +132,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards2"
-                    android:layout_width="135dp"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -169,7 +169,7 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards3"
-                    android:layout_width="120dp"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -207,7 +207,7 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards4"
-                    android:layout_width="120dp"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -247,7 +247,7 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cards5"
-                    android:layout_width="120dp"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_20sdp"
@@ -336,7 +336,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/performer_id"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_height="@dimen/_140sdp"
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:backgroundTint="@color/primaryColor"
@@ -365,16 +365,14 @@
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
                     android:src="@drawable/cmprofile"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#FF000000"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/_40sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
                     android:orientation="vertical">
 
                     <!-- Training Type -->
@@ -382,10 +380,9 @@
                         android:id="@+id/training_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:text="Strength Training"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_16ssp"
                         android:textStyle="bold" />
 
                     <!-- Time -->
@@ -423,7 +420,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Coach: Mike Tyson"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"

@@ -129,6 +129,8 @@
         android:backgroundTint="@color/secondaryColor"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_10sdp"/>
+    <!-- TextView for summary -->
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -182,7 +184,7 @@
                     android:textColor="@color/black"
                     android:layout_below="@id/label_steps"
                     android:layout_toRightOf="@id/foot_steps"
-                    android:layout_marginStart="40dp" />
+                    android:layout_marginStart="10dp" />
 
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -231,10 +233,11 @@
                     android:textColor="@color/black"
                     android:layout_below="@id/label_heart_rate"
                     android:layout_toRightOf="@id/heart_rate"
-                    android:layout_marginStart="40dp" />
+                    android:layout_marginStart="10dp" />
 
             </RelativeLayout>
-        </com.google.android.material.card.MaterialCardView> </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -288,7 +291,7 @@
                     android:textColor="@color/black"
                     android:layout_below="@id/label_blood_pressure"
                     android:layout_toRightOf="@id/blood_pressure"
-                    android:layout_marginStart="40dp" />
+                    android:layout_marginStart="10dp" />
 
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -337,12 +340,12 @@
                     android:textColor="@color/black"
                     android:layout_below="@id/label_calories"
                     android:layout_toRightOf="@id/calories"
-                    android:layout_marginStart="40dp" />
+                    android:layout_marginStart="10dp" />
 
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-    <!-- TextView for summary -->
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -360,6 +363,7 @@
         android:layout_marginTop="@dimen/_10sdp" />
 
         <ImageView
+            android:id="@+id/full_weekly_summary"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:src="@drawable/forward"

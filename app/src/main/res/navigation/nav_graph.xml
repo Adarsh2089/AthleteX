@@ -83,6 +83,9 @@
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_weeklySummaryFragment"
+            app:destination="@id/Weekly_summary" />
     </fragment>
     <fragment
         android:id="@+id/Community"
@@ -110,6 +113,12 @@
             android:id="@+id/action_homeFragment_to_workoutFragment"
             app:destination="@id/workoutFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/Weekly_summary"
+        android:name="com.example.athletex.views.fragment.WeeklyAnalysis"
+        android:label="fragment_Weekly"
+        tools:layout="@layout/fragment_weekly_analysis" >
 
+    </fragment>
 
 </navigation>

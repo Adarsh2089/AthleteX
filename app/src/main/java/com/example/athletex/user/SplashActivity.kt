@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.athletex.Gemini.Gemini
 import com.example.athletex.R
 
 /**
@@ -41,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
                     finish()
                 }else if (isLoggedIn) {
                     // User is logged in, navigate to MainActivity
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, Gemini::class.java))
                 } else {
                     // User is not logged in, navigate to LoginActivity
                     startActivity(Intent(this, LoginActivity::class.java))

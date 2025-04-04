@@ -415,7 +415,7 @@
                             android:textColor="#0B1361"
                             android:textStyle="bold"
                             android:textSize="@dimen/_18ssp"
-                            android:layout_gravity="center_horizonta  l"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_5sdp"/>
 
                         <!--sample button to submit entered data inside from edit text-->

@@ -29,6 +29,12 @@
         tools:remove="android:appComponentFactory"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.CoachorUser"
+            android:exported="false" />
+        <activity
+            android:name=".Coach.CoachSignup"
+            android:exported="false" />
+        <activity
             android:name=".Gemini.Gemini"
             android:exported="false" />
         <activity

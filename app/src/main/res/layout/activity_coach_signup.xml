@@ -12,7 +12,7 @@
         android:id="@+id/first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="vertical">
 
         <ImageView
@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AthleteX"
+            android:text="Create Your Account"
             android:layout_gravity="center"
-            android:textSize="@dimen/_28ssp"
+            android:textSize="@dimen/_24ssp"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-condensed-medium"
             android:textStyle="bold"
@@ -44,7 +44,7 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_20sdp"
         android:layout_below="@+id/first"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp">
 
@@ -55,28 +55,50 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password Reset"
+                android:text="Sign up"
                 android:textColor="#0B1361"
                 android:textStyle="bold"
-                android:textSize="@dimen/_22ssp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_5sdp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Your Email and we will send \n you a link to change a new password"
-                android:textColor="#C85C6B56"
-                android:textStyle="bold"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_24ssp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_5sdp"/>
 
-            <EditText
-                android:id="@+id/emailEditText"
-                style="@style/CustomEditText"
-                android:layout_margin="20dp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:hint="Enter your registered email" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_20sdp">
+                <EditText
+                    android:id="@+id/etName"
+                    style="@style/CustomEditText"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:hint="Full Name" />
+
+                <EditText
+                    android:id="@+id/etAssociationName"
+                    style="@style/CustomEditText"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:hint="Your Association name" />
+                <EditText
+                    android:id="@+id/etExperience"
+                    style="@style/CustomEditText"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:hint="Experience (in years)"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    style="@style/CustomEditText"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    style="@style/CustomEditText"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -87,19 +109,19 @@
 
             <!--sample button to submit entered data inside from edit text-->
             <Button
-                android:id="@+id/resetPasswordButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:backgroundTint="@color/primaryColor"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:text="Reset Password"
-                android:onClick="loginUser"/>
+                android:text="Create Account"
+                android:onClick="registerUser" />
+
             <TextView
-                android:id="@+id/relogin"
+                android:id="@+id/loginBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I got Password ? Login"
+                android:text="Already have an account? Login"
                 android:layout_gravity="center"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="@dimen/_13ssp"

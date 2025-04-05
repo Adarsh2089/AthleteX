@@ -188,10 +188,22 @@
             android:layout_marginStart="@dimen/margin_large"
             android:text="@string/plan_today"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addPlanBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add plan"
+            app:icon="@drawable/plan"
+            android:backgroundTint="@color/secondaryColor"
+            app:iconGravity="textStart"
+            app:iconSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <!-- No Plan TextView -->
         <TextView
@@ -276,8 +288,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/changers"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -314,8 +325,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/goalstorm"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -351,8 +361,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/metrofit"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -388,8 +397,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/smash"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -425,8 +433,7 @@
                             android:layout_height="@dimen/_65sdp"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/karishma"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

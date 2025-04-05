@@ -1,7 +1,6 @@
-package com.example.athletex.user;
+package com.example.athletex.Coach;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,17 +11,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.athletex.Coach.CoachModel;
 import com.example.athletex.R;
+import com.example.athletex.user.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Random;
 
-public class SignupActivity extends AppCompatActivity {
+public class CoachSignup extends AppCompatActivity {
 
-    private EditText etName, etSport, etGoals, etCoach, etExperience, etEmail, etPassword;
+    private EditText etName,etAssociatonName, etExperience, etEmail, etPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -31,12 +31,10 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_coach_signup);
 
         etName = findViewById(R.id.etName);
-        etSport = findViewById(R.id.etSport);
-        etGoals = findViewById(R.id.etGoals);
-        etCoach = findViewById(R.id.etCoach);
+        etAssociatonName = findViewById(R.id.etAssociationName);
         etExperience = findViewById(R.id.etExperience);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -45,9 +43,10 @@ public class SignupActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Coach");
+
         loginBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
@@ -55,16 +54,13 @@ public class SignupActivity extends AppCompatActivity {
 
     public void registerUser(View view) {
         String name = etName.getText().toString().trim();
-        String sport = etSport.getText().toString().trim();
-        String goals = etGoals.getText().toString().trim();
-        String coach = etCoach.getText().toString().trim();
+        String AssociationName = etAssociatonName.getText().toString().trim();
         String experience = etExperience.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
 
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(sport) || TextUtils.isEmpty(goals) ||
-                TextUtils.isEmpty(coach) || TextUtils.isEmpty(experience) ||
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(AssociationName) || TextUtils.isEmpty(experience) ||
                 TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return;
@@ -76,21 +72,21 @@ public class SignupActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
-                        String userId = "ATX" + String.format("%04d", new Random().nextInt(10000));
+                        String userId = "ATC" + String.format("%04d", new Random().nextInt(10000));
 
-                        userModel user = new userModel(userId, name, sport, goals, coach, experience, email);
-                        mDatabase.child(mAuth.getUid()).setValue(user)
+                        CoachModel coach = new CoachModel(userId, name, AssociationName, experience, email);
+                        mDatabase.child(mAuth.getUid()).setValue(coach)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
-                                        Toast.makeText(SignupActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                                        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(this, LoginActivity.class));
                                         finish();
                                     } else {
-                                        Toast.makeText(SignupActivity.this, "Failed to save user data!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(this, "Failed to save user data!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     } else {
-                        Toast.makeText(SignupActivity.this, "Registration Failed! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Registration Failed! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -1,6 +1,8 @@
 package com.example.athletex.views.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.athletex.R
 import com.example.athletex.data.database.AppRepository
 import com.example.athletex.data.results.WorkoutResult
+import com.example.athletex.user.LoginActivity
 import com.example.athletex.util.MemoryManagement
 import com.example.athletex.util.MyApplication
 import com.example.athletex.viewmodels.ResultViewModel
@@ -28,6 +31,11 @@ import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.gms.fitness.result.DataReadResponse
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,6 +43,7 @@ import java.text.DecimalFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+import kotlin.jvm.java
 import kotlin.math.min
 
 class ProfileFragment : Fragment(), MemoryManagement {
@@ -48,6 +57,7 @@ class ProfileFragment : Fragment(), MemoryManagement {
     private lateinit var heartTextView: TextView
     private lateinit var caloriesTextView: TextView
     private lateinit var sleepTextView: TextView
+    private lateinit var mAuth: FirebaseAuth
 
 
     override fun onCreateView(
@@ -69,6 +79,59 @@ class ProfileFragment : Fragment(), MemoryManagement {
         caloriesTextView = view.findViewById(R.id.value_calories)
         sleepTextView = view.findViewById(R.id.value_blood_pressure)
         val weeklySum: ImageView = view.findViewById(R.id.full_weekly_summary)
+        val logOut: ImageView = view.findViewById(R.id.logOutBtn)
+
+
+        // To get User Name from DATABASE
+        mAuth = FirebaseAuth.getInstance()
+        val userId = mAuth.uid
+        val userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId!!)
+
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val name = snapshot.child("name").getValue(String::class.java)
+                    view.findViewById<TextView>(R.id.user_name).text = name ?: "No name found"
+                    Log.d("FirebaseDebug", "User Found: $name")
+                } else {
+                    view.findViewById<TextView>(R.id.user_name).text = "User not found!"
+                    Log.d("FirebaseDebug", "User ID not found in database")
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                view.findViewById<TextView>(R.id.nameTextView).text = "Error: ${error.message}"
+            }
+        })
+
+
+        // Tp Logout the User
+
+        logOut.setOnClickListener {
+            val sharedPreferences: SharedPreferences =
+                requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
+
+            // Firebase sign out (optional but recommended)
+            FirebaseAuth.getInstance().signOut()
+
+            // Start Login Activity
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
+        }
+
+
+
+
+
+
+
+
+
+
 
         loadData()
 
@@ -78,7 +141,8 @@ class ProfileFragment : Fragment(), MemoryManagement {
                 return
             }
         }
-        setupGoogleSignIn()
+        // Intialize Google Fit Data Sync
+            setupGoogleSignIn()
 
         weeklySum.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_weeklySummaryFragment)

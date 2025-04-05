@@ -1,4 +1,8 @@
-# 🏃‍♂️ AthletiX – Empowering Athletes. Elevating Sports.
+<h1 align="center">AthleteX</h1>
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/cbf78f59-0752-4a4f-8dcb-8a4006c2ad28" alt="logo" width="200"/>
+</p>
 
 ## 📱 Project Overview
 

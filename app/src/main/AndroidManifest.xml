@@ -29,6 +29,9 @@
         android:theme="@style/Theme.PoseExercise"
         tools:remove="android:appComponentFactory"
         tools:targetApi="31">
+<!--        <activity-->
+<!--            android:name=".meals.MealSelection"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".Activities.CoachorUser"
             android:exported="false" />

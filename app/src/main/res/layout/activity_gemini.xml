@@ -5,25 +5,50 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextPrompt"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvSelectMeal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter prompt"
-        android:layout_marginTop="@dimen/_40sdp"
-        android:inputType="text" />
+        android:text="Select Meal Type:"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="12dp" />
 
-    <Button
-        android:id="@+id/btnGenerate"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Generate Response" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="3"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnBreakfast"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Breakfast"/>
+
+        <Button
+            android:id="@+id/btnLunch"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Lunch"/>
+
+        <Button
+            android:id="@+id/btnDinner"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Dinner"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewResponse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Response will appear here"
+        android:text="Meal suggestions will appear here"
         android:textSize="16sp"
         android:paddingTop="10dp"/>
 </LinearLayout>

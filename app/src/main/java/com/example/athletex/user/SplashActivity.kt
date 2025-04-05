@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE)
-        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false)
 
 
 
@@ -42,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
                     finish()
                 }else if (isLoggedIn) {
                     // User is logged in, navigate to MainActivity
-                    startActivity(Intent(this, Gemini::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                 } else {
                     // User is not logged in, navigate to LoginActivity
                     startActivity(Intent(this, LoginActivity::class.java))

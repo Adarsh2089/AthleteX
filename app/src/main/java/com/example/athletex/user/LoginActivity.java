@@ -7,11 +7,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.athletex.Activities.CoachorUser;
+import com.example.athletex.Gemini.Gemini;
 import com.example.athletex.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -21,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private TextView forgotPasswordText,signupBTN;
+    private RadioGroup userTypeGroup;
+    private RadioButton radioAthlete, radioCoach;
 
 
     @Override
@@ -33,6 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         forgotPasswordText = findViewById(R.id.forgotPasswordText);
         signupBTN = findViewById(R.id.signup);
+        userTypeGroup = findViewById(R.id.userTypeGroup);
+        radioAthlete = findViewById(R.id.radioAthlete);
+        radioCoach = findViewById(R.id.radioCoach);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -44,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         signupBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CoachorUser.class);
                 startActivity(intent);
                 finish();
             }
@@ -66,9 +76,16 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
-                        String userId = mAuth.getCurrentUser().getUid();
-                        saveLoginSession(userId);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        saveLoginSession();
+                        // Check Whether the user is a Coach or an Athlete
+                        int selectedId = userTypeGroup.getCheckedRadioButtonId();
+                        if (selectedId == R.id.radioAthlete) {
+                            // User is an Athlete
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        } else {
+                            // User is a Coach
+                            startActivity(new Intent(LoginActivity.this, Gemini.class));
+                        }
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
@@ -77,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveLoginSession(String userId) {
+    private void saveLoginSession() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isLoggedIn", true);

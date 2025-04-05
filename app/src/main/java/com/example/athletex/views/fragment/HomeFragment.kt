@@ -2,7 +2,6 @@ package com.example.athletex.views.fragment
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
@@ -16,6 +15,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.athletex.R
@@ -31,8 +31,8 @@ import com.example.athletex.util.MyUtils
 import com.example.athletex.viewmodels.AddPlanViewModel
 import com.example.athletex.viewmodels.HomeViewModel
 import com.example.athletex.viewmodels.ResultViewModel
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -66,6 +66,8 @@ class HomeFragment : Fragment(), PlanAdapter.ItemListener, MemoryManagement {
     private lateinit var appRepository: AppRepository
     private lateinit var addPlanViewModel: AddPlanViewModel
     private lateinit var adapter: PlanAdapter
+    private lateinit var mAuth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,33 +95,34 @@ class HomeFragment : Fragment(), PlanAdapter.ItemListener, MemoryManagement {
         addPlanViewModel = AddPlanViewModel(MyApplication.getInstance())
 
 
-       val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+        // To get User Name from DATABASE
+       mAuth = FirebaseAuth.getInstance()
+        val userId = mAuth.uid
+        val userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId!!)
 
-        val sharedPreferences = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getString("userId", "") ?: ""
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val name = snapshot.child("name").getValue(String::class.java)
+                    view.findViewById<TextView>(R.id.nameTextView).text = name ?: "No name found"
+                    Log.d("FirebaseDebug", "User Found: $name")
+                } else {
+                    view.findViewById<TextView>(R.id.nameTextView).text = "User not found!"
+                    Log.d("FirebaseDebug", "User ID not found in database")
+                }
+            }
 
-      //  Toast.makeText(requireContext(), "User ID: $userId", Toast.LENGTH_SHORT).show()
+            override fun onCancelled(error: DatabaseError) {
+                view.findViewById<TextView>(R.id.nameTextView).text = "Error: ${error.message}"
+            }
+        })
 
-            // Search for userId inside Users node
-            databaseReference.orderByChild("userId").equalTo(userId)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            for (userSnapshot in snapshot.children) {
-                                val name = userSnapshot.child("name").getValue(String::class.java)
-                                view.findViewById<TextView>(R.id.nameTextView).text = name ?: "No name found"
-                                Log.d("FirebaseDebug", "User Found: $name")
-                            }
-                        } else {
-                            view.findViewById<TextView>(R.id.nameTextView).text = "User not found!"
-                            Log.d("FirebaseDebug", "User ID not found in database")
-                        }
-                    }
+        val addPlanButton = view.findViewById<MaterialButton>(R.id.addPlanBtn)
 
-                    override fun onCancelled(error: DatabaseError) {
-                        view.findViewById<TextView>(R.id.nameTextView).text = "Error: ${error.message}"
-                    }
-                })
+        addPlanButton.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_planStepOneFragment)
+        }
+
 
 
 

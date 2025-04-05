@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_50sdp"
-            android:src="@drawable/athlete"
+            android:src="@drawable/athlete_bg"
             android:layout_gravity="center" />
 
 

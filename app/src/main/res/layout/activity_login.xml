@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_50sdp"
-            android:src="@drawable/athlete"
+            android:src="@drawable/athlete_bg"
             android:layout_gravity="center" />
 
 
@@ -115,6 +115,27 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <RadioGroup
+                android:id="@+id/userTypeGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioAthlete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Athlete"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioCoach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:text="Coach" />
+            </RadioGroup>
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"

@@ -2,11 +2,12 @@ package com.example.athletex.views.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.TextView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -22,93 +23,104 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import java.util.*
 import kotlin.math.min
 
-/**
- * Profile view with the information on workout for a week
- */
-class WeeklyAnalysis : Fragment(), MemoryManagement {
-    // Declare variables for ViewModel, Chart, UI components, and data
+class FragmentWeeklyAnalysis : Fragment(), MemoryManagement {
+
     private lateinit var resultViewModel: ResultViewModel
-    private lateinit var chart: BarChart
+    private var chart: BarChart? = null
     private var workoutResults: List<WorkoutResult>? = null
-    private lateinit var workOutTime: TextView
+    private var workOutTime: TextView? = null
     private lateinit var appRepository: AppRepository
+    private lateinit var mAuth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_weekly_analysis, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Initialize ViewModel, Chart, and UI components
         resultViewModel = ResultViewModel(MyApplication.getInstance())
         chart = view.findViewById(R.id.chart)
         workOutTime = view.findViewById(R.id.total_time)
         appRepository = AppRepository(requireActivity().application)
-        // Load data and set up the chart
         loadDataAndSetupChart()
+
+        // To get User Name from DATABASE
+        mAuth = FirebaseAuth.getInstance()
+        val userId = mAuth.uid
+        val userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId!!)
+
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val name = snapshot.child("name").getValue(String::class.java)
+                    view.findViewById<TextView>(R.id.textView1).text = name ?: "No name found"
+                    Log.d("FirebaseDebug", "User Found: $name")
+                } else {
+                    view.findViewById<TextView>(R.id.textView1).text = "User not found!"
+                    Log.d("FirebaseDebug", "User ID not found in database")
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                view.findViewById<TextView>(R.id.nameTextView).text = "Error: ${error.message}"
+            }
+        })
     }
 
     private fun loadDataAndSetupChart() {
         lifecycleScope.launch(Dispatchers.IO) {
-            // Fetch workout results asynchronously
             workoutResults = resultViewModel.getAllResult()
-            // Filter workout results for the current week
             val currentWeek = getCurrentCalendarWeek()
+
             workoutResults = workoutResults?.filter {
                 getCalendarWeek(it.timestamp) == currentWeek
             }
+
             val decimalFormat = DecimalFormat("#.##")
             val totalWorkoutTimeForCurrentWeek =
                 workoutResults?.let { calculateTotalWorkoutTimeForWeek(it, currentWeek) }
             val formattedWorkoutTime = decimalFormat.format(totalWorkoutTimeForCurrentWeek)
 
-            // Observe exercise plans from the database
             withContext(Dispatchers.Main) {
+                workOutTime?.text = formattedWorkoutTime
+
                 appRepository.allPlans.observe(viewLifecycleOwner) { exercisePlans ->
-                    // Calculate progress and update UI
                     val totalPlannedRepetitions = exercisePlans.sumOf { it.repeatCount }
                     val totalCompletedRepetitions = workoutResults?.sumOf { it.repeatedCount } ?: 0
                     val progressPercentage =
-                        if (totalPlannedRepetitions != 0) {
+                        if (totalPlannedRepetitions != 0)
                             (totalCompletedRepetitions.toDouble() / totalPlannedRepetitions) * 100
-                        } else {
-                            0.0
-                        }
+                        else 0.0
 
-                    // Update the TextView with the formatted workout time
-                    workOutTime.text = formattedWorkoutTime
+                    updateProgressViews(progressPercentage)
 
                     val totalCaloriesPerDay =
                         workoutResults?.let { calculateTotalCaloriesPerDay(it) }
+
                     if (totalCaloriesPerDay != null) {
-                        // Update the chart with total calories per day
                         updateChart(totalCaloriesPerDay, workoutResults)
                     }
-
-                    // Update the ProgressBar and TextView with the progress percentage
-                    updateProgressViews(progressPercentage)
                 }
             }
         }
     }
 
-    // Function to update progress views (ProgressBar and TextView)
     private fun updateProgressViews(progressPercentage: Double) {
-        // Update progress views (ProgressBar and TextView)
         val cappedProgress = min(progressPercentage, 110.0)
-
         val progressBar = view?.findViewById<ProgressBar>(R.id.progress_bar)
         val progressTextView = view?.findViewById<TextView>(R.id.percentage)
 
@@ -116,16 +128,12 @@ class WeeklyAnalysis : Fragment(), MemoryManagement {
         progressTextView?.text = String.format("%.2f%%", cappedProgress)
     }
 
-    // Function to get the current calendar week
     private fun getCurrentCalendarWeek(): Int {
         val calendar = Calendar.getInstance(Locale.getDefault())
-        // Set the first day of the week to Sunday
         calendar.firstDayOfWeek = Calendar.SUNDAY
-        // Get the week of the year
         return calendar.get(Calendar.WEEK_OF_YEAR)
     }
 
-    // Function to calculate total workout time for a specific week
     private fun calculateTotalWorkoutTimeForWeek(
         workoutResults: List<WorkoutResult>,
         targetWeek: Int
@@ -135,26 +143,19 @@ class WeeklyAnalysis : Fragment(), MemoryManagement {
             .sumOf { it.workoutTimeInMin }
     }
 
-    // Function to get the week of the year from a timestamp
     private fun getCalendarWeek(timestamp: Long): Int {
         val calendar = Calendar.getInstance(Locale.getDefault())
         calendar.timeInMillis = timestamp
         return calendar.get(Calendar.WEEK_OF_YEAR)
     }
 
-    // Function to calculate total calories per day from workout results
     private fun calculateTotalCaloriesPerDay(workoutResults: List<WorkoutResult>): Map<String, Double> {
         val totalCaloriesPerDay = mutableMapOf<String, Double>()
-
-        // Initialize entries for each day of the week
         val daysOfWeek = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
-        for (day in daysOfWeek) {
-            totalCaloriesPerDay[day] = 0.0
-        }
+        daysOfWeek.forEach { totalCaloriesPerDay[it] = 0.0 }
 
         for (result in workoutResults) {
-            val startDate = getStartOfDay(result.timestamp)
-            val key = formatDate(startDate)
+            val key = formatDate(getStartOfDay(result.timestamp))
             val totalCalories = totalCaloriesPerDay.getOrDefault(key, 0.0) + result.calorie
             totalCaloriesPerDay[key] = totalCalories
         }
@@ -162,141 +163,90 @@ class WeeklyAnalysis : Fragment(), MemoryManagement {
         return totalCaloriesPerDay
     }
 
-    // Function to get the start of the day
     private fun getStartOfDay(timestamp: Long): Long {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
-
-        // Set the calendar to the start of the day
         calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
-
         return calendar.timeInMillis
     }
 
-    // Function to format a timestamp to a string representing the day of the week
     private fun formatDate(timestamp: Long): String {
         val dateFormat = SimpleDateFormat("EEE", Locale.getDefault())
         return dateFormat.format(Date(timestamp))
     }
 
-    // Function to update the chart with total calories per week
     private fun updateChart(
         totalCaloriesPerWeek: Map<String, Double>,
         workoutResults: List<WorkoutResult>?
     ) {
-        // Use workoutResults for the present week
+        val chartView = chart ?: return // avoid null crash
+
         val totalCalories = workoutResults?.sumOf { it.calorie } ?: 0.0
-
-        // Update the total calories TextView
-        val totalCaloriesTextView = view?.findViewById<TextView>(R.id.totalCaloriesTextView)
-
         val formattedTotalCalories = String.format(Locale.getDefault(), "%.2f", totalCalories)
+        view?.findViewById<TextView>(R.id.totalCaloriesTextView)?.text =
+            getString(R.string.total_calories, formattedTotalCalories)
 
-        totalCaloriesTextView?.text =
-            String.format(
-                Locale.getDefault(),
-                getString(R.string.total_calories),
-                formattedTotalCalories
-            )
-
-        // Map entries for BarChart
         val entries = totalCaloriesPerWeek.entries.mapIndexed { index, entry ->
             BarEntry(index.toFloat(), entry.value.toFloat())
         }
 
-        val totalExerciseCount = calculateTotalExerciseCountForWeek(workoutResults)
-        val totalExerciseTextView = view?.findViewById<TextView>(R.id.total_exercise)
-        totalExerciseTextView?.text =
-            String.format(getString(R.string.total_exercise), totalExerciseCount)
+        view?.findViewById<TextView>(R.id.total_exercise)?.text =
+            getString(R.string.total_exercise, calculateTotalExerciseCountForWeek(workoutResults))
 
-        val labels = totalCaloriesPerWeek.keys.toList()
         val dataSet = BarDataSet(entries, "Total Calories per Week")
         dataSet.colors = getBarColors(totalCaloriesPerWeek)
         val data = BarData(dataSet)
-        chart.data = data
 
-        // Set custom labels for each bar
-        chart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        val labels = totalCaloriesPerWeek.keys.toList()
+        chartView.data = data
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        chartView.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chartView.legend.isEnabled = false
+        chartView.description = null
+        chartView.axisLeft.axisMinimum = 0f
 
-        // Set X-axis position to the bottom
-        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chartView.axisRight.setDrawGridLines(false)
+        chartView.axisRight.setDrawLabels(false)
+        chartView.axisRight.setDrawAxisLine(false)
 
-        chart.legend.isEnabled = false
+        chartView.axisLeft.setDrawGridLines(false)
+        chartView.axisLeft.setDrawAxisLine(false)
 
-        // Set description to null
-        chart.description = null
+        chartView.xAxis.setDrawGridLines(false)
+        chartView.xAxis.setDrawAxisLine(false)
 
-        // Align the starting point of the y-axis with the x-axis
-        chart.axisLeft.axisMinimum = 0f
-
-        // Set Y-Axis (Right) values
-        chart.axisRight.apply {
-            setDrawGridLines(false)
-            setDrawLabels(false)
-            setDrawAxisLine(false)
+        if (totalCaloriesPerWeek.any { it.value == 0.0 }) {
+            dataSet.valueTextSize = 0f
         }
 
-        // Set Y-Axis (Left) values
-        chart.axisLeft.apply {
-            setDrawGridLines(false)
-            setDrawAxisLine(false)
-        }
-
-        // Set X-Axis values
-        chart.xAxis.apply {
-            setDrawGridLines(false)
-            setDrawAxisLine(false)
-        }
-
-        for (i in entries.indices) {
-            val value = totalCaloriesPerWeek[labels[i]]
-            if (value != null && value == 0.0) {
-                // Set text size to 0 to hide the values
-                dataSet.valueTextSize = 0f
-                break
-            }
-        }
-        chart.invalidate()
+        chartView.invalidate()
     }
 
-    // Function to calculate the total exercise count for the week
     private fun calculateTotalExerciseCountForWeek(workoutResults: List<WorkoutResult>?): Int {
-        val totalExerciseCount = workoutResults?.count { result ->
-            val startDate = getStartOfDay(result.timestamp)
-            val dayOfWeek = getDayOfWeek(startDate)
-            // returns a value from 1 (Sunday) to 7 (Saturday)
+        return workoutResults?.count {
+            val dayOfWeek = getDayOfWeek(getStartOfDay(it.timestamp))
             dayOfWeek in 1..7
         } ?: 0
-
-        return totalExerciseCount
     }
 
-    // Function to get the day of the week from a timestamp
     private fun getDayOfWeek(timestamp: Long): Int {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
         return calendar.get(Calendar.DAY_OF_WEEK)
     }
 
-    // Function to get bar colors based on total calories per week
     private fun getBarColors(totalCaloriesPerWeek: Map<String, Double>): List<Int> {
         val primaryColor = ContextCompat.getColor(requireContext(), R.color.primaryColor)
-
-        return totalCaloriesPerWeek
-            .map { (_, value) -> if (value > 0) primaryColor else Color.TRANSPARENT }
+        return totalCaloriesPerWeek.map { (_, value) ->
+            if (value > 0) primaryColor else Color.TRANSPARENT
+        }
     }
 
     override fun clearMemory() {
-        // Clear memory
         workoutResults = null
-        chart.clear()
-    }
-
-    override fun onDestroy() {
-        clearMemory()
-        super.onDestroy()
+        chart?.clear()
     }
 }

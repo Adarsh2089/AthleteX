@@ -115,7 +115,7 @@
     </fragment>
     <fragment
         android:id="@+id/Weekly_summary"
-        android:name="com.example.athletex.views.fragment.WeeklyAnalysis"
+        android:name="com.example.athletex.views.fragment.FragmentWeeklyAnalysis"
         android:label="fragment_Weekly"
         tools:layout="@layout/fragment_weekly_analysis" >
 

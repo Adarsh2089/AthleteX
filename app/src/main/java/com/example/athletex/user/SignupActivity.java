@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText etName, etSport, etGoals, etCoach, etExperience, etEmail, etPassword;
+    private EditText etName, etSport, etGoals, etCoachNumber,etCoach, etExperience, etEmail, etPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -40,8 +40,10 @@ public class SignupActivity extends AppCompatActivity {
         etExperience = findViewById(R.id.etExperience);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etCoachNumber = findViewById(R.id.etCoachNumber);
         progressBar = findViewById(R.id.progressBar);
         loginBtn = findViewById(R.id.loginBtn);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -62,13 +64,33 @@ public class SignupActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
+        // Coach Number for injury managment and coach contact
+        String coachNumber = etCoachNumber.getText().toString().trim();
+
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(sport) || TextUtils.isEmpty(goals) ||
-                TextUtils.isEmpty(coach) || TextUtils.isEmpty(experience) ||
+                TextUtils.isEmpty(coach) || TextUtils.isEmpty(experience) || TextUtils.isEmpty(coachNumber) ||
                 TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (coachNumber.length() != 10) {
+            Toast.makeText(this, "Coach Number should be 10 digits", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!coachNumber.matches("\\d+")) {
+            Toast.makeText(this, "Coach Number should only contain digits", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Save Coach Number for future prefernce
+        SharedPreferences sharedPreferences = getSharedPreferences("CoachNumber", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("coachNumber", coachNumber);
+        editor.apply();
+
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -78,7 +100,7 @@ public class SignupActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String userId = "ATX" + String.format("%04d", new Random().nextInt(10000));
 
-                        userModel user = new userModel(userId, name, sport, goals, coach, experience, email);
+                        userModel user = new userModel(userId, name, sport, goals, coach,coachNumber,experience,email);
                         mDatabase.child(mAuth.getUid()).setValue(user)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {

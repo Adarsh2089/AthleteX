@@ -67,6 +67,7 @@
                         android:textColor="@color/white"
                         android:layout_below="@id/user_image"
                         android:layout_marginTop="8dp"
+                        android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_centerHorizontal="false" />
 
                     <!-- Second Circle Image (Coach Profile) -->
@@ -91,7 +92,6 @@
                         android:textColor="@color/white"
                         android:layout_below="@id/coach_image"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="-10dp"
                         android:layout_alignEnd="@id/coach_image"/>
 
                     <TextView

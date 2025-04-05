@@ -93,8 +93,13 @@ class ProfileFragment : Fragment(), MemoryManagement {
                     val name = snapshot.child("name").getValue(String::class.java)
                     view.findViewById<TextView>(R.id.user_name).text = name ?: "No name found"
                     Log.d("FirebaseDebug", "User Found: $name")
+                    val CoachName = snapshot.child("coach").getValue(String::class.java)
+                    view.findViewById<TextView>(R.id.coach_name).text = CoachName ?: "No name found"
+                    Log.d("FirebaseDebug", "User Found: $name")
                 } else {
                     view.findViewById<TextView>(R.id.user_name).text = "User not found!"
+                    Log.d("FirebaseDebug", "User ID not found in database")
+                    view.findViewById<TextView>(R.id.coach_name).text = "User not found!"
                     Log.d("FirebaseDebug", "User ID not found in database")
                 }
             }
@@ -122,16 +127,6 @@ class ProfileFragment : Fragment(), MemoryManagement {
             startActivity(intent)
 
         }
-
-
-
-
-
-
-
-
-
-
 
         loadData()
 

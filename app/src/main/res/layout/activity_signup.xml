@@ -91,7 +91,13 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:hint="Associated Coach" />
 
-            <EditText
+         <EditText
+             android:id="@+id/etCoachNumber"
+             style="@style/CustomEditText"
+             android:layout_marginBottom="@dimen/_10sdp"
+             android:hint="Your Coach Phone Number" />
+
+         <EditText
                 android:id="@+id/etExperience"
                 style="@style/CustomEditText"
                 android:layout_marginBottom="@dimen/_10sdp"

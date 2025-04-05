@@ -3,11 +3,14 @@ package com.example.athletex.views.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
+import android.telephony.SmsManager
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
@@ -55,6 +58,7 @@ import com.example.athletex.posedetector.classification.PoseClassifierProcessor.
 import com.example.athletex.posedetector.classification.PoseClassifierProcessor.SQUATS_CLASS
 import com.example.athletex.posedetector.classification.PoseClassifierProcessor.WARRIOR_CLASS
 import com.example.athletex.posedetector.classification.PoseClassifierProcessor.YOGA_TREE_CLASS
+import com.example.athletex.user.MainActivity
 import com.example.athletex.util.MemoryManagement
 import com.example.athletex.util.MyApplication
 import com.example.athletex.util.MyUtils.Companion.convertTimeStringToMinutes
@@ -65,10 +69,14 @@ import com.example.athletex.viewmodels.AddPlanViewModel
 import com.example.athletex.viewmodels.CameraXViewModel
 import com.example.athletex.viewmodels.HomeViewModel
 import com.example.athletex.viewmodels.ResultViewModel
-import com.example.athletex.user.MainActivity
 import com.example.athletex.views.fragment.preference.PreferenceUtils
 import com.example.athletex.views.graphic.GraphicOverlay
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.mlkit.common.MlKitException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -427,6 +435,103 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                         confIndicatorView.visibility = View.INVISIBLE
                         confidenceTextView.visibility = View.INVISIBLE
                         yogaPoseImage.visibility = View.INVISIBLE
+
+
+               //<-------- Injury Management Logic ---------->
+
+                        // Taking the planned reps from database
+                        var plannedReps: Int? = databaseExercisePlan.find {
+                            it.exerciseName.equals(key, ignoreCase = true)
+                        }?.repetitions
+
+                        if (plannedReps == null || plannedReps == 0) {
+                            plannedReps = HighCount // fallback
+                        }
+
+                        val dangerLimit = (plannedReps * 1.5).toInt()
+                        val limitToAlertCoach= (plannedReps * 2).toInt()
+                        var hasAlertedCoach = false // Checks if one time alerted no other time send unusual
+
+
+                        if (value.repetition > dangerLimit) {
+                            Toast.makeText(requireContext(), "Injury can happen! Please take rest.", Toast.LENGTH_LONG).show()
+                            val tts = TextToSpeech(requireContext()) { status ->
+                                if (status == TextToSpeech.SUCCESS) {
+                                    textToSpeech.language = Locale.US
+                                    textToSpeech.speak(
+                                        "Injury can happen! Please take rest.",
+                                        TextToSpeech.QUEUE_FLUSH,
+                                        null,
+                                        null
+                                    )
+                                }
+                            }
+                        }
+
+                        if (value.repetition > limitToAlertCoach && !hasAlertedCoach) {
+                            hasAlertedCoach = true // Alerted don't send again
+
+                            // Show visual message
+                            Toast.makeText(requireContext(), "Limit exceeded! Alerting coach...", Toast.LENGTH_LONG).show()
+
+                            // Speak it out
+                            val tts = TextToSpeech(requireContext()) { status ->
+                                if (status == TextToSpeech.SUCCESS) {
+                                    textToSpeech.language = Locale.US
+                                    textToSpeech.speak(
+                                        "Limit exceeded! Alerting your coach now.",
+                                        TextToSpeech.QUEUE_FLUSH,
+                                        null,
+                                        null
+                                    )
+
+                                    // Code to fetch Coach Number from Shared Preferences
+                                    val sharedPreferences = requireContext().getSharedPreferences("CoachNumber", Context.MODE_PRIVATE)
+                                    val coachNum = sharedPreferences.getString("coachNumber", null)
+
+                                    // Code to Fecth User and Coach Name and Number From CLoud Database
+                                    val userId = FirebaseAuth.getInstance().currentUser?.uid
+                                    val databaseRef = FirebaseDatabase.getInstance().getReference("Users")
+
+                                    if (userId != null) {
+                                        databaseRef.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+                                            override fun onDataChange(snapshot: DataSnapshot) {
+                                                if (snapshot.exists()) {
+                                                    val coachName = snapshot.child("coach").getValue(String::class.java)
+                                                    val coachNumber = snapshot.child("coachNumber").getValue(String::class.java)
+                                                    val userName = snapshot.child("name").getValue(String::class.java)
+
+                                                    Log.d("Firebase", "Coach: $coachName, Number: $coachNumber, User: $userName")
+
+                                                    // Sending ALert To the Coach
+                                                    if (!coachNumber.isNullOrEmpty()) {
+                                                        val smsManager = SmsManager.getDefault()
+                                                        smsManager.sendTextMessage(
+                                                            coachNumber,
+                                                            null,
+                                                            "Hey Coach $coachName ,\n Your Athlete $userName is not following the guidelines Properly. \n\n Team AthletiX" ,
+                                                            null,
+                                                            null
+                                                        )
+                                                    }
+                                                } else {
+                                                    Log.d("Firebase", "User not found")
+                                                }
+                                            }
+
+                                            override fun onCancelled(error: DatabaseError) {
+                                                Log.e("Firebase", "Error fetching data: ${error.message}")
+                                            }
+                                        })
+                                    }
+
+                                }
+                            }
+                        }
+                        //<-------- Injury Managment Logic Ends Here ---------->
+
+
+
                         // check if the exercise target is complete
                         var repetition: Int? = databaseExercisePlan.find {
                             it.exerciseName.equals(
@@ -1005,7 +1110,8 @@ class WorkOutFragment : Fragment(), MemoryManagement {
             arrayOf(
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.SEND_SMS
             )
     }
 

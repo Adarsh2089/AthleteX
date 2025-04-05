@@ -124,8 +124,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:src="@drawable/fitf"
-                            android:onClick="loginUser"/>
+                            android:src="@drawable/fitf" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -162,8 +161,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:src="@drawable/poowerpulse"
-                            android:onClick="loginUser"/>
+                            android:src="@drawable/poowerpulse" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -200,8 +198,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/titans"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -236,12 +233,10 @@
                             android:id="@+id/club_pulse"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/pulse"
-
                             android:text="Login"
-                            android:onClick="loginUser"/>
+                            />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -276,12 +271,8 @@
                             android:id="@+id/club_rhythm"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-
                             android:backgroundTint="@color/primaryColor"
-                            android:src="@drawable/rhythm"
-
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:src="@drawable/rhythm" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -482,8 +473,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/changers"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -519,8 +509,7 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
                             android:src="@drawable/yogashakti"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:text="Login" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -554,9 +543,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:src="@drawable/agnifit"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:src="@drawable/agnifit" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -590,9 +577,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:src="@drawable/indic"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:src="@drawable/indic" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -626,9 +611,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/primaryColor"
-                            android:src="@drawable/taranag"
-                            android:text="Login"
-                            android:onClick="loginUser"/>
+                            android:src="@drawable/taranag" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

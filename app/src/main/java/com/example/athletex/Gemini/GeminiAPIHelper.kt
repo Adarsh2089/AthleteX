@@ -76,7 +76,7 @@ class GeminiAPIHelper {
     // 🔥 New helper function for meal suggestions
     fun getMealSuggestionPrompt(mealType: String, callback: (String) -> Unit) {
             val prompt = """
-            Generate a valid JSON response only. Do not include any explanation, markdown formatting, or extra text. Meal should be indian and health freak.Dish name should be known.
+            Generate a valid JSON response only. Do not include any explanation, markdown formatting, or extra text. Meal should be indian , vegetarian and health freak.Dish name should be known.
             Format:
             {
               \"meals\": [

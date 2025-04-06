@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:background="@android:color/black"
+    android:background="@color/white"
     android:gravity="center_vertical">
 
     <!-- Meal Name -->
@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:text="Meal Name"
         android:textSize="18sp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textStyle="bold"/>
 
     <!-- Meal Calories -->
@@ -25,7 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="200 kcal"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="16sp"
         android:layout_marginEnd="8dp"/>
 

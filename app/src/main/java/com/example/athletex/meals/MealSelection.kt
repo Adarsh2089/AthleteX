@@ -1,29 +1,33 @@
 package com.example.athletex.meals
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.*
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.athletex.Gemini.GeminiAPIHelper
-import com.example.athletex.R
 import com.example.athletex.Gemini.MealModel
-import com.example.athletex.Gemini.Macros
+import com.example.athletex.R
 
 class MealSelection : AppCompatActivity() {
 
     private lateinit var geminiAPIHelper: GeminiAPIHelper
 
-
+    private lateinit var mealRecyclerView: RecyclerView
     private lateinit var suggestionsRecyclerView: RecyclerView
     private lateinit var totalCaloriesText: TextView
+    private lateinit var confirmMealButton: Button
     private lateinit var mealType: String
+
+    private val mealList = mutableListOf<MealItem>()
+    private lateinit var mealAdapter: MealAdapter
 
     private val suggestionsList = mutableListOf<MealModel>()
     private var totalCalories = 0
@@ -32,21 +36,45 @@ class MealSelection : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal_selection)
 
-        // Get the meal type passed from previous screen
         mealType = intent.getStringExtra("MEAL_TYPE") ?: "Unknown"
-
-        // Initialize views
-        suggestionsRecyclerView = findViewById(R.id.suggestionsRecyclerView)
-        totalCaloriesText = findViewById(R.id.totalCalories)
 
         geminiAPIHelper = GeminiAPIHelper()
 
+        mealRecyclerView = findViewById(R.id.mealRecyclerView)
+        suggestionsRecyclerView = findViewById(R.id.suggestionsRecyclerView)
+        totalCaloriesText = findViewById(R.id.totalCalories)
+        confirmMealButton = findViewById(R.id.confirmMealButton)
 
-        // Setup recyclerview
+        setupMealRecycler()
         setupSuggestionsRecycler()
 
-        // Load dummy suggestion data
+        loadMealsFromFirebase()
         loadSuggestionsData()
+
+        confirmMealButton.setOnClickListener {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+            val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val ref = FirebaseDatabase.getInstance().getReference("meals/$userId/$currentDate/$mealType")
+
+            ref.removeValue().addOnSuccessListener {
+                mealList.forEach { meal ->
+                    val mealId = ref.push().key!!
+                    ref.child(mealId).setValue(meal)
+                }
+                Toast.makeText(this, "Meals updated!", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(this, "Failed to update meals", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupMealRecycler() {
+        mealAdapter = MealAdapter(mealList) { calories ->
+            totalCalories = calories
+            totalCaloriesText.text = "Total Calories: $totalCalories"
+        }
+        mealRecyclerView.layoutManager = LinearLayoutManager(this)
+        mealRecyclerView.adapter = mealAdapter
     }
 
     private fun setupSuggestionsRecycler() {
@@ -57,6 +85,27 @@ class MealSelection : AppCompatActivity() {
         }
     }
 
+    private fun loadMealsFromFirebase() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "guest_user"
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        val databaseRef = FirebaseDatabase.getInstance()
+            .getReference("meals/$userId/$currentDate/$mealType")
+
+        databaseRef.get().addOnSuccessListener { snapshot ->
+            mealList.clear()
+            for (mealSnapshot in snapshot.children) {
+                val meal = mealSnapshot.getValue(MealItem::class.java)
+                meal?.let { mealList.add(it) }
+            }
+            mealAdapter.notifyDataSetChanged()
+            updateTotalCalories()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to fetch meals.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
     private fun loadSuggestionsData() {
         val loadingSpinner = findViewById<ProgressBar>(R.id.loadingSpinner)
         loadingSpinner.visibility = View.VISIBLE
@@ -64,13 +113,11 @@ class MealSelection : AppCompatActivity() {
         geminiAPIHelper.getMealSuggestionPrompt(mealType) { jsonString ->
             val meals = geminiAPIHelper.parseMealSuggestions(jsonString)
 
-            // Clear old data
             runOnUiThread {
                 suggestionsList.clear()
                 suggestionsRecyclerView.adapter?.notifyDataSetChanged()
             }
 
-            // Fetch image for each meal
             meals.forEachIndexed { index, meal ->
                 com.example.athletex.Gemini.unsplashHelper.fetchImageForMeal(meal.name) { imageUrl ->
                     meal.imageUrl = imageUrl ?: ""
@@ -87,29 +134,6 @@ class MealSelection : AppCompatActivity() {
         }
     }
 
-
-//    private fun showMealPopup(meal: MealModel) {
-//        val message = """
-//            Calories: ${meal.calories}
-//            Summary: ${meal.summary}
-//            Macros:
-//            • Carbs: ${meal.macros.carbs}
-//            • Protein: ${meal.macros.protein}
-//            • Fat: ${meal.macros.fat}
-//        """.trimIndent()
-//
-//        AlertDialog.Builder(this)
-//            .setTitle(meal.name)
-//            .setMessage(message)
-//            .setPositiveButton("Add") { _, _ ->
-//                Toast.makeText(this, "${meal.name} added to meal", Toast.LENGTH_SHORT).show()
-//                totalCalories += meal.calories.toInt()
-//                totalCaloriesText.text = "Total Calories: $totalCalories"
-//            }
-//            .setNegativeButton("Cancel", null)
-//            .show()
-//    }
-
     private fun showMealPopup(meal: MealModel) {
         val dialogView = layoutInflater.inflate(R.layout.meal_popup, null)
 
@@ -123,20 +147,43 @@ class MealSelection : AppCompatActivity() {
         if (meal.imageUrl.isNotEmpty()) {
             Glide.with(this).load(meal.imageUrl).into(mealImage)
         } else {
-            mealImage.setImageResource(R.drawable.agnifit) // fallback
+            mealImage.setImageResource(R.drawable.agnifit)
         }
 
         AlertDialog.Builder(this)
             .setView(dialogView)
             .setPositiveButton("Add to Meal") { _, _ ->
-                Toast.makeText(this, "${meal.name} added!", Toast.LENGTH_SHORT).show()
-                totalCalories += meal.calories.toInt()
-                totalCaloriesText.text = "Total Calories: $totalCalories"
+                val newMeal = MealItem(meal.name, meal.calories.toInt(), true)
+                mealList.add(newMeal)
+                mealAdapter.notifyItemInserted(mealList.size - 1)
+                updateTotalCalories()
+                saveMealToFirebase(newMeal)
             }
+
             .setNegativeButton("Cancel", null)
             .create()
             .show()
     }
+
+    private fun saveMealToFirebase(meal: MealItem) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "guest_user"
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        val databaseRef = FirebaseDatabase.getInstance()
+            .getReference("meals/$userId/$currentDate/$mealType")
+
+        val mealId = databaseRef.push().key!!
+        databaseRef.child(mealId).setValue(meal)
+    }
+
+    private fun updateTotalCalories() {
+        val selectedCalories = mealList.filter { it.isSelected }.sumOf { it.calories }
+        totalCalories = selectedCalories
+        totalCaloriesText.text = "Total Calories: $totalCalories"
+    }
+
+
+
 
 
 }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.athletex.Coach.CoachScreen
 import com.example.athletex.Gemini.Gemini
 import com.example.athletex.R
 
@@ -27,6 +28,8 @@ class SplashActivity : AppCompatActivity() {
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false)
+        val isCoachLoggedIn = sharedPreferences.getBoolean("isCoachLoggedIn",false)
+
 
 
 
@@ -40,7 +43,10 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(Intent(this, OnboardingActivity::class.java))
                     // Close the splash screen
                     finish()
-                }else if (isLoggedIn) {
+                }else if(isCoachLoggedIn){
+                    // Coach is logged in, navigate to Coach Screen
+                    startActivity(Intent(this, CoachScreen::class.java))
+                } else if (isLoggedIn) {
                     // User is logged in, navigate to MainActivity
                     startActivity(Intent(this, MainActivity::class.java))
                 } else {

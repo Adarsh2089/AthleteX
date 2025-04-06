@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.athletex.Activities.CoachorUser;
+import com.example.athletex.Coach.CoachScreen;
 import com.example.athletex.Gemini.Gemini;
 import com.example.athletex.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         } else {
                             // User is a Coach
-                            startActivity(new Intent(LoginActivity.this, Gemini.class));
+                            startActivity(new Intent(LoginActivity.this, CoachScreen.class));
                         }
                         finish();
                     } else {
@@ -98,6 +99,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isLoggedIn", true);
+        editor.putBoolean("isCoachLoggedIn", true);
         editor.apply();
     }
+
 }

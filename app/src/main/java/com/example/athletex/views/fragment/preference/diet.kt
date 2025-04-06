@@ -1,12 +1,13 @@
-package com.example.athletex
+package com.example.athletex.views.fragment.preference
+
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.athletex.R
 import com.example.athletex.meals.MealSelection
-import android.widget.ImageView
 
 class diet : Fragment() {
 

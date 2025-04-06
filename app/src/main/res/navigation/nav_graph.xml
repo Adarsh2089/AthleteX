@@ -99,7 +99,7 @@
     </fragment>
     <fragment
         android:id="@+id/DietFragment"
-        android:name="com.example.athletex.diet"
+        android:name="com.example.athletex.views.fragment.preference.diet"
         android:label="fragment_diet"
         tools:layout="@layout/fragment_diet" >
 

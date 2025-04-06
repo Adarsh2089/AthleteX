@@ -489,9 +489,8 @@
                     android:text="@string/example_percentage" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-
     </LinearLayout>
+
     <TextView
         android:id="@+id/totalCaloriesTextView"
         android:layout_width="wrap_content"

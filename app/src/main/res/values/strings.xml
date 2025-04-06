@@ -23,7 +23,7 @@
     <string name="there_is_no_plan_set_at_the_moment">There is no plan set at the moment</string>
     <string name="exercise_left">%d exercise left</string>
 
-    <string name="app_name" translatable="false">RepDetect+</string>
+    <string name="app_name" translatable="false">AthleteX</string>
 
     <string name="java_entry_title" translatable="false">Run the ML Kit quickstart written in Java</string>
     <string name="kotlin_entry_title" translatable="false">Run the ML Kit quickstart written in Kotlin</string>

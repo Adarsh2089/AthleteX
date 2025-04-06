@@ -468,6 +468,8 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                             }
                         }
 
+
+
                         if (value.repetition > limitToAlertCoach && !hasAlertedCoach) {
                             hasAlertedCoach = true // Alerted don't send again
 
@@ -484,11 +486,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                                         null,
                                         null
                                     )
-
-                                    // Code to fetch Coach Number from Shared Preferences
-                                    val sharedPreferences = requireContext().getSharedPreferences("CoachNumber", Context.MODE_PRIVATE)
-                                    val coachNum = sharedPreferences.getString("coachNumber", null)
-
                                     // Code to Fecth User and Coach Name and Number From CLoud Database
                                     val userId = FirebaseAuth.getInstance().currentUser?.uid
                                     val databaseRef = FirebaseDatabase.getInstance().getReference("Users")

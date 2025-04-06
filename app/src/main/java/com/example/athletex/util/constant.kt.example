@@ -1,0 +1,9 @@
+package com.example.athletex.util
+
+class constant {
+    // GET YOUR GEMINI API KEY FROM HERE https://aistudio.google.com/apikey
+     val GEMINI_API_KEY="YOUR GEMINI API KEY"
+
+    // GET YOUR UNSPLASH API KEY BY CREATING NEW APPLICATION FROM HERE https://unsplash.com/oauth/applications
+    val UNSPLASH_API_KEY="YOUR UNSPLASH APP API KEY"
+}

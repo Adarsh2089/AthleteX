@@ -1,5 +1,6 @@
 package com.example.athletex.Gemini
 
+import com.example.athletex.util.constant
 import android.util.Log
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -7,8 +8,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 class GeminiAPIHelper {
-
-    private val API_KEY = "AIzaSyC_m0Ac24TcONQyu891to4FcqT0Wl2ct9s"
+    private val API_KEY = constant().GEMINI_API_KEY
     private val client = OkHttpClient()
     private val URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$API_KEY"
 
@@ -76,7 +76,7 @@ class GeminiAPIHelper {
     // 🔥 New helper function for meal suggestions
     fun getMealSuggestionPrompt(mealType: String, callback: (String) -> Unit) {
             val prompt = """
-            Generate a valid JSON response only. Do not include any explanation, markdown formatting, or extra text. Meal should be indian , vegetarian and health freak.Dish name should be known.
+            Generate a valid JSON response only. Do not include any explanation, markdown formatting, or extra text. Meal name should be maximum of two words.along with meal should be vegetarian and healthy.
             Format:
             {
               \"meals\": [

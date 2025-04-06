@@ -1,6 +1,6 @@
 // UnsplashApiHelper.kt
 package com.example.athletex.Gemini
-
+import com.example.athletex.util.constant
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName
 object unsplashHelper {
 
     private const val BASE_URL = "https://api.unsplash.com/"
-    private const val CLIENT_ID = "_0hQCLI3DS4jNZvcxdHDU0_O2MV0IaVXj71FZc3Txbc" // Replace with your key
+
+    private  val CLIENT_ID =constant().UNSPLASH_API_KEY
+
 
     private val api: UnsplashApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
